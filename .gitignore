@@ -1,0 +1,5 @@
+# cookies file
+src/cookie.py
+
+# cache data
+/src/__pycache__/
