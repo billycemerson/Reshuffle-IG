@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "jibriaratna", "label": "jibriaratna", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: jibriaratna\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "aienditfc", "label": "aienditfc", "like_sum": 237, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: aienditfc\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 237\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 0, "group": 15, "id": "smindrawati", "label": "smindrawati", "like_sum": 0, "mention_count": 111, "shape": "dot", "size": 10, "title": "User: smindrawati\u003cbr\u003eComments: 0\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 111", "value": 57.67826876426369}, {"color": "#97c2fc", "comment_count": 4, "group": 15, "id": "andriawanarif24", "label": "andriawanarif24", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: andriawanarif24\u003cbr\u003eComments: 4\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "slatjenny", "label": "slatjenny", "like_sum": 15, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: slatjenny\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 15\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "marioaian", "label": "marioaian", "like_sum": 4, "mention_count": 3, "shape": "dot", "size": 10, "title": "User: marioaian\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 4\u003cbr\u003eMentions: 3", "value": 13.660254037844386}, {"color": "#97c2fc", "comment_count": 2, "group": 15, "id": "hengkiheng98", "label": "hengkiheng98", "like_sum": 410, "mention_count": 3, "shape": "dot", "size": 10, "title": "User: hengkiheng98\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 410\u003cbr\u003eMentions: 3", "value": 13.660254037844386}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "zulhammuchtar", "label": "zulhammuchtar", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: zulhammuchtar\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "sukabumimediautama", "label": "sukabumimediautama", "like_sum": 2, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: sukabumimediautama\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 2\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 2, "group": 15, "id": "rudi.gaol", "label": "rudi.gaol", "like_sum": 1, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: rudi.gaol\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 2, "group": 15, "id": "ahmadruyan9", "label": "ahmadruyan9", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: ahmadruyan9\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 5, "group": 15, "id": "achmad.rehansyah.1", "label": "achmad.rehansyah.1", "like_sum": 1, "mention_count": 5, "shape": "dot", "size": 10, "title": "User: achmad.rehansyah.1\u003cbr\u003eComments: 5\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 5", "value": 16.18033988749895}, {"color": "#97c2fc", "comment_count": 2, "group": 15, "id": "doraeyon_", "label": "doraeyon_", "like_sum": 58, "mention_count": 3, "shape": "dot", "size": 10, "title": "User: doraeyon_\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 58\u003cbr\u003eMentions: 3", "value": 13.660254037844386}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "andiiprt", "label": "andiiprt", "like_sum": 77, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: andiiprt\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 77\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 5, "group": 15, "id": "floflorav", "label": "floflorav", "like_sum": 56, "mention_count": 3, "shape": "dot", "size": 10, "title": "User: floflorav\u003cbr\u003eComments: 5\u003cbr\u003eLikes: 56\u003cbr\u003eMentions: 3", "value": 13.660254037844386}, {"color": "#97c2fc", "comment_count": 2, "group": 15, "id": "jessy_humirtap", "label": "jessy_humirtap", "like_sum": 2415, "mention_count": 4, "shape": "dot", "size": 10, "title": "User: jessy_humirtap\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 2415\u003cbr\u003eMentions: 4", "value": 15.0}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "siiriyans", "label": "siiriyans", "like_sum": 2, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: siiriyans\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 2\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "syafiraoctafiani", "label": "syafiraoctafiani", "like_sum": 130, "mention_count": 4, "shape": "dot", "size": 10, "title": "User: syafiraoctafiani\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 130\u003cbr\u003eMentions: 4", "value": 15.0}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "chineselovematures", "label": "chineselovematures", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: chineselovematures\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 15, "id": "awahyudiiii", "label": "awahyudiiii", "like_sum": 2, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: awahyudiiii\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 2\u003cbr\u003eMentions: 2", "value": 12.071067811865476}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "jibriaratna", "to": "aienditfc", "width": 1}, {"arrows": "to", "from": "jibriaratna", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "andriawanarif24", "to": "slatjenny", "width": 1}, {"arrows": "to", "from": "andriawanarif24", "to": "marioaian", "width": 1}, {"arrows": "to", "from": "hengkiheng98", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "hengkiheng98", "to": "zulhammuchtar", "width": 1}, {"arrows": "to", "from": "sukabumimediautama", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "rudi.gaol", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "ahmadruyan9", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "achmad.rehansyah.1", "to": "ahmadruyan9", "width": 1}, {"arrows": "to", "from": "achmad.rehansyah.1", "to": "doraeyon_", "width": 1}, {"arrows": "to", "from": "andiiprt", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "aienditfc", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "floflorav", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "jessy_humirtap", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "slatjenny", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "siiriyans", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "syafiraoctafiani", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "chineselovematures", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "awahyudiiii", "to": "smindrawati", "width": 1}, {"arrows": "to", "from": "zulhammuchtar", "to": "hengkiheng98", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "indahnyakotapekanbaru", "label": "indahnyakotapekanbaru", "like_sum": 1, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: indahnyakotapekanbaru\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 0, "group": 2, "id": "prabowo", "label": "prabowo", "like_sum": 0, "mention_count": 236, "shape": "dot", "size": 10, "title": "User: prabowo\u003cbr\u003eComments: 0\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 236", "value": 81.81145747868608}, {"color": "#97c2fc", "comment_count": 0, "group": 2, "id": "gerindra", "label": "gerindra", "like_sum": 0, "mention_count": 15, "shape": "dot", "size": 10, "title": "User: gerindra\u003cbr\u003eComments: 0\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 15", "value": 24.364916731037084}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "mawaariiuadd", "label": "mawaariiuadd", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: mawaariiuadd\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 0, "group": 2, "id": "kemenpar", "label": "kemenpar", "like_sum": 0, "mention_count": 22, "shape": "dot", "size": 10, "title": "User: kemenpar\u003cbr\u003eComments: 0\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 22", "value": 28.45207879911715}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "basoeki_widjaja", "label": "basoeki_widjaja", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: basoeki_widjaja\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "zeinedebali", "label": "zeinedebali", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: zeinedebali\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 2, "group": 2, "id": "subachan_subachan", "label": "subachan_subachan", "like_sum": 1, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: subachan_subachan\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 3, "group": 2, "id": "teer_yteee3949", "label": "teer_yteee3949", "like_sum": 0, "mention_count": 4, "shape": "dot", "size": 10, "title": "User: teer_yteee3949\u003cbr\u003eComments: 3\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 4", "value": 15.0}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "rummatadody", "label": "rummatadody", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: rummatadody\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "miyaaaloiiia", "label": "miyaaaloiiia", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: miyaaaloiiia\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "dwiwahyuni464", "label": "dwiwahyuni464", "like_sum": 6, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: dwiwahyuni464\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 6\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "man_vidaview_apartments", "label": "man_vidaview_apartments", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: man_vidaview_apartments\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "asnia_nanta", "label": "asnia_nanta", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: asnia_nanta\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "andijerni", "label": "andijerni", "like_sum": 7, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: andijerni\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 7\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "mitadewanti5", "label": "mitadewanti5", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: mitadewanti5\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "riowahyuda58", "label": "riowahyuda58", "like_sum": 0, "mention_count": 4, "shape": "dot", "size": 10, "title": "User: riowahyuda58\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 4", "value": 15.0}, {"color": "#97c2fc", "comment_count": 0, "group": 2, "id": "susipudjiastuti115", "label": "susipudjiastuti115", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: susipudjiastuti115\u003cbr\u003eComments: 0\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "sandii2905", "label": "sandii2905", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: sandii2905\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "andi_m_awal", "label": "andi_m_awal", "like_sum": 1, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: andi_m_awal\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "ikonarendra", "label": "ikonarendra", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: ikonarendra\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "sahabatgowesiantar", "label": "sahabatgowesiantar", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: sahabatgowesiantar\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "dindasafira138", "label": "dindasafira138", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: dindasafira138\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "puttinurma", "label": "puttinurma", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: puttinurma\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 2, "group": 2, "id": "ashurin.1010", "label": "ashurin.1010", "like_sum": 1, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: ashurin.1010\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "senoa_jj", "label": "senoa_jj", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: senoa_jj\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "laurabbgaadd", "label": "laurabbgaadd", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: laurabbgaadd\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "kun_toarya", "label": "kun_toarya", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: kun_toarya\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "aamedo3", "label": "aamedo3", "like_sum": 0, "mention_count": 3, "shape": "dot", "size": 10, "title": "User: aamedo3\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 3", "value": 13.660254037844386}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "cepyanugrahs90", "label": "cepyanugrahs90", "like_sum": 1, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: cepyanugrahs90\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "daffi.azhari", "label": "daffi.azhari", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: daffi.azhari\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "antorubiyanto396", "label": "antorubiyanto396", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: antorubiyanto396\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "aeztrishavaniabi", "label": "aeztrishavaniabi", "like_sum": 0, "mention_count": 4, "shape": "dot", "size": 10, "title": "User: aeztrishavaniabi\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 4", "value": 15.0}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "sev.tjhoa", "label": "sev.tjhoa", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: sev.tjhoa\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "lllgita97", "label": "lllgita97", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: lllgita97\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 2, "group": 2, "id": "hery_wibowoo", "label": "hery_wibowoo", "like_sum": 32, "mention_count": 3, "shape": "dot", "size": 10, "title": "User: hery_wibowoo\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 32\u003cbr\u003eMentions: 3", "value": 13.660254037844386}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "faiza_azah", "label": "faiza_azah", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: faiza_azah\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 2, "group": 2, "id": "denisarimbi06", "label": "denisarimbi06", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: denisarimbi06\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "himawari_hana7", "label": "himawari_hana7", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: himawari_hana7\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 2, "group": 2, "id": "izamaranief", "label": "izamaranief", "like_sum": 1, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: izamaranief\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "meisiashh", "label": "meisiashh", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: meisiashh\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 3, "group": 2, "id": "donnyo1105", "label": "donnyo1105", "like_sum": 3, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: donnyo1105\u003cbr\u003eComments: 3\u003cbr\u003eLikes: 3\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "krnwaan__", "label": "krnwaan__", "like_sum": 10, "mention_count": 3, "shape": "dot", "size": 10, "title": "User: krnwaan__\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 10\u003cbr\u003eMentions: 3", "value": 13.660254037844386}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "tamy.apreall", "label": "tamy.apreall", "like_sum": 1, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: tamy.apreall\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 2, "group": 2, "id": "ravenzzyy", "label": "ravenzzyy", "like_sum": 7, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: ravenzzyy\u003cbr\u003eComments: 2\u003cbr\u003eLikes: 7\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "kinan.ataya", "label": "kinan.ataya", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: kinan.ataya\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "abryan_story", "label": "abryan_story", "like_sum": 1, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: abryan_story\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 1\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "karyono6879", "label": "karyono6879", "like_sum": 6, "mention_count": 3, "shape": "dot", "size": 10, "title": "User: karyono6879\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 6\u003cbr\u003eMentions: 3", "value": 13.660254037844386}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "bintorosetya", "label": "bintorosetya", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: bintorosetya\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 0, "group": 2, "id": "basukibtp", "label": "basukibtp", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: basukibtp\u003cbr\u003eComments: 0\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "ervinadifitri", "label": "ervinadifitri", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: ervinadifitri\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "anti.karisna", "label": "anti.karisna", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: anti.karisna\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "revianasta7", "label": "revianasta7", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: revianasta7\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "ukmindo.id", "label": "ukmindo.id", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: ukmindo.id\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}, {"color": "#97c2fc", "comment_count": 1, "group": 2, "id": "zackarckerman", "label": "zackarckerman", "like_sum": 0, "mention_count": 2, "shape": "dot", "size": 10, "title": "User: zackarckerman\u003cbr\u003eComments: 1\u003cbr\u003eLikes: 0\u003cbr\u003eMentions: 2", "value": 12.071067811865476}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "indahnyakotapekanbaru", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "indahnyakotapekanbaru", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "mawaariiuadd", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "mawaariiuadd", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "basoeki_widjaja", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "basoeki_widjaja", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "zeinedebali", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "zeinedebali", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "subachan_subachan", "to": "teer_yteee3949", "width": 1}, {"arrows": "to", "from": "rummatadody", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "rummatadody", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "miyaaaloiiia", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "miyaaaloiiia", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "dwiwahyuni464", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "man_vidaview_apartments", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "man_vidaview_apartments", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "asnia_nanta", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "asnia_nanta", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "andijerni", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "mitadewanti5", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "mitadewanti5", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "riowahyuda58", "to": "susipudjiastuti115", "width": 1}, {"arrows": "to", "from": "riowahyuda58", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "riowahyuda58", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "sandii2905", "to": "susipudjiastuti115", "width": 1}, {"arrows": "to", "from": "sandii2905", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "andi_m_awal", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "ikonarendra", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "ikonarendra", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "sahabatgowesiantar", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "dindasafira138", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "dindasafira138", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "puttinurma", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "puttinurma", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "ashurin.1010", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "senoa_jj", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "senoa_jj", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "laurabbgaadd", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "laurabbgaadd", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "kun_toarya", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "kun_toarya", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "aamedo3", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "aamedo3", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "cepyanugrahs90", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "cepyanugrahs90", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "daffi.azhari", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "daffi.azhari", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "antorubiyanto396", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "antorubiyanto396", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "aeztrishavaniabi", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "aeztrishavaniabi", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "sev.tjhoa", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "sev.tjhoa", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "lllgita97", "to": "hery_wibowoo", "width": 1}, {"arrows": "to", "from": "faiza_azah", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "faiza_azah", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "denisarimbi06", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "himawari_hana7", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "himawari_hana7", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "hery_wibowoo", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "hery_wibowoo", "to": "lllgita97", "width": 1}, {"arrows": "to", "from": "izamaranief", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "meisiashh", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "meisiashh", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "donnyo1105", "to": "krnwaan__", "width": 1}, {"arrows": "to", "from": "donnyo1105", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "tamy.apreall", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "tamy.apreall", "to": "gerindra", "width": 1}, {"arrows": "to", "from": "ravenzzyy", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "kinan.ataya", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "kinan.ataya", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "abryan_story", "to": "karyono6879", "width": 1}, {"arrows": "to", "from": "abryan_story", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "bintorosetya", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "bintorosetya", "to": "basukibtp", "width": 1}, {"arrows": "to", "from": "ervinadifitri", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "ervinadifitri", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "anti.karisna", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "anti.karisna", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "revianasta7", "to": "kemenpar", "width": 1}, {"arrows": "to", "from": "revianasta7", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "teer_yteee3949", "to": "subachan_subachan", "width": 1}, {"arrows": "to", "from": "teer_yteee3949", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "ukmindo.id", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "zackarckerman", "to": "prabowo", "width": 1}, {"arrows": "to", "from": "zackarckerman", "to": "kemenpar", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

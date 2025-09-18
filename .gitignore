@@ -3,3 +3,6 @@ src/cookie.py
 
 # cache data
 /src/__pycache__/
+
+# library
+/src/lib/
