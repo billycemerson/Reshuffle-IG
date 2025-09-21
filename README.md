@@ -1,19 +1,25 @@
 # SNA Analysis about Reshuffle
 
-This project analyzes public discourse surrounding President Prabowo's recent cabinet reshuffle through Instagram comment networks. Using mention patterns (@username) from social media comments, we map community structures and identify echo chambers in political discussions.
+This project explores public reactions to President Prabowo’s second cabinet reshuffle (September 8, 2025) through Instagram comment networks. By analyzing mention patterns (@username), we uncover how online communities form, interact, and express sentiment around this major political event.
+
+## Motivation
+
+The reshuffle, which involved figures such as Sri Mulyani and Budi Arie Setiadi, triggered intense debates online. Instagram became a hotspot where supporters, critics, and neutrals voiced their opinions. Understanding this discourse provides valuable insight into how political narratives spread and how echo chambers shape public opinion.
 
 ## Prerequisites
 
 - Python 3.10 or higher
 - Instagram account with valid login cookies
 
-## Result Sample
+## Result (Community Network)
 
-![Mention Network](data/graph-result.png)
+![Mention Community Network](results/community-network.png)
 
-## Key Features
+## Key Insight
 
-The analysis reveals a highly fragmented discussion landscape (0.36% network density) with distinct communities forming around different political perspectives, suggesting the presence of echo chambers in Indonesia's political social media discourse.
+- Political discourse on Instagram shows echo chambers, where groups mostly interact within their own communities.
+- Sentiment and emotion analysis helps reveal nuanced public reactions: some celebrated the reshuffle, while others expressed disappointment.
+- The combination of SNA + sentiment/emotion analysis is effective for mapping how political debates evolve online.
 
 ## Tech Stack
 
